@@ -1,0 +1,553 @@
+
+build/basalt/pebble-app.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+000000a8 <jump_to_pbl_function>:
+  a8:	a303      	add	r3, pc, #12	; (adr r3, b8 <pbl_table_addr>)
+  aa:	6818      	ldr	r0, [r3, #0]
+  ac:	4408      	add	r0, r1
+  ae:	6802      	ldr	r2, [r0, #0]
+  b0:	4694      	mov	ip, r2
+  b2:	bc0f      	pop	{r0, r1, r2, r3}
+  b4:	4760      	bx	ip
+  b6:	bf00      	nop
+
+000000b8 <pbl_table_addr>:
+  b8:	a8a8a8a8 	.word	0xa8a8a8a8
+
+000000bc <window_unload>:
+  bc:	4b02      	ldr	r3, [pc, #8]	; (c8 <window_unload+0xc>)
+  be:	447b      	add	r3, pc
+  c0:	6818      	ldr	r0, [r3, #0]
+  c2:	f000 ba27 	b.w	514 <text_layer_destroy>
+  c6:	bf00      	nop
+  c8:	00000516 	.word	0x00000516
+
+000000cc <select_click_handler>:
+  cc:	b508      	push	{r3, lr}
+  ce:	4b1d      	ldr	r3, [pc, #116]	; (144 <select_click_handler+0x78>)
+  d0:	447b      	add	r3, pc
+  d2:	781a      	ldrb	r2, [r3, #0]
+  d4:	f082 0201 	eor.w	r2, r2, #1
+  d8:	701a      	strb	r2, [r3, #0]
+  da:	2301      	movs	r3, #1
+  dc:	b14a      	cbz	r2, f2 <select_click_handler+0x26>
+  de:	f043 010c 	orr.w	r1, r3, #12
+  e2:	f363 1105 	bfi	r1, r3, #4, #2
+  e6:	4b18      	ldr	r3, [pc, #96]	; (148 <select_click_handler+0x7c>)
+  e8:	f061 013f 	orn	r1, r1, #63	; 0x3f
+  ec:	447b      	add	r3, pc
+  ee:	6818      	ldr	r0, [r3, #0]
+  f0:	e009      	b.n	106 <select_click_handler+0x3a>
+  f2:	2100      	movs	r1, #0
+  f4:	f363 0101 	bfi	r1, r3, #0, #2
+  f8:	f363 0183 	bfi	r1, r3, #2, #2
+  fc:	4b13      	ldr	r3, [pc, #76]	; (14c <select_click_handler+0x80>)
+  fe:	f061 010f 	orn	r1, r1, #15
+ 102:	447b      	add	r3, pc
+ 104:	6818      	ldr	r0, [r3, #0]
+ 106:	f000 f9f9 	bl	4fc <window_set_background_color>
+ 10a:	4b11      	ldr	r3, [pc, #68]	; (150 <select_click_handler+0x84>)
+ 10c:	447b      	add	r3, pc
+ 10e:	781a      	ldrb	r2, [r3, #0]
+ 110:	2301      	movs	r3, #1
+ 112:	b14a      	cbz	r2, 128 <select_click_handler+0x5c>
+ 114:	f043 010c 	orr.w	r1, r3, #12
+ 118:	f363 1105 	bfi	r1, r3, #4, #2
+ 11c:	4b0d      	ldr	r3, [pc, #52]	; (154 <select_click_handler+0x88>)
+ 11e:	f061 013f 	orn	r1, r1, #63	; 0x3f
+ 122:	447b      	add	r3, pc
+ 124:	6818      	ldr	r0, [r3, #0]
+ 126:	e009      	b.n	13c <select_click_handler+0x70>
+ 128:	2100      	movs	r1, #0
+ 12a:	f363 0101 	bfi	r1, r3, #0, #2
+ 12e:	f363 0183 	bfi	r1, r3, #2, #2
+ 132:	4b09      	ldr	r3, [pc, #36]	; (158 <select_click_handler+0x8c>)
+ 134:	f061 010f 	orn	r1, r1, #15
+ 138:	447b      	add	r3, pc
+ 13a:	6818      	ldr	r0, [r3, #0]
+ 13c:	f000 f9f6 	bl	52c <text_layer_set_background_color>
+ 140:	bd08      	pop	{r3, pc}
+ 142:	bf00      	nop
+ 144:	000004fc 	.word	0x000004fc
+ 148:	000004f4 	.word	0x000004f4
+ 14c:	000004de 	.word	0x000004de
+ 150:	000004c0 	.word	0x000004c0
+ 154:	000004b2 	.word	0x000004b2
+ 158:	0000049c 	.word	0x0000049c
+
+0000015c <window_load>:
+ 15c:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 15e:	b085      	sub	sp, #20
+ 160:	f000 f9a8 	bl	4b4 <window_get_root_layer>
+ 164:	4606      	mov	r6, r0
+ 166:	4631      	mov	r1, r6
+ 168:	4668      	mov	r0, sp
+ 16a:	f000 f97f 	bl	46c <layer_get_bounds>
+ 16e:	2300      	movs	r3, #0
+ 170:	f8ad 3008 	strh.w	r3, [sp, #8]
+ 174:	2346      	movs	r3, #70	; 0x46
+ 176:	f8ad 300a 	strh.w	r3, [sp, #10]
+ 17a:	f8bd 3004 	ldrh.w	r3, [sp, #4]
+ 17e:	2501      	movs	r5, #1
+ 180:	f8ad 300c 	strh.w	r3, [sp, #12]
+ 184:	2328      	movs	r3, #40	; 0x28
+ 186:	f8ad 300e 	strh.w	r3, [sp, #14]
+ 18a:	ab04      	add	r3, sp, #16
+ 18c:	e913 0003 	ldmdb	r3, {r0, r1}
+ 190:	f000 f9ba 	bl	508 <text_layer_create>
+ 194:	2100      	movs	r1, #0
+ 196:	f365 0101 	bfi	r1, r5, #0, #2
+ 19a:	4c12      	ldr	r4, [pc, #72]	; (1e4 <window_load+0x88>)
+ 19c:	f365 0183 	bfi	r1, r5, #2, #2
+ 1a0:	447c      	add	r4, pc
+ 1a2:	f061 010f 	orn	r1, r1, #15
+ 1a6:	6020      	str	r0, [r4, #0]
+ 1a8:	f000 f9c0 	bl	52c <text_layer_set_background_color>
+ 1ac:	480e      	ldr	r0, [pc, #56]	; (1e8 <window_load+0x8c>)
+ 1ae:	6827      	ldr	r7, [r4, #0]
+ 1b0:	4478      	add	r0, pc
+ 1b2:	f000 f94f 	bl	454 <fonts_get_system_font>
+ 1b6:	4601      	mov	r1, r0
+ 1b8:	4638      	mov	r0, r7
+ 1ba:	f000 f9bd 	bl	538 <text_layer_set_font>
+ 1be:	490b      	ldr	r1, [pc, #44]	; (1ec <window_load+0x90>)
+ 1c0:	6820      	ldr	r0, [r4, #0]
+ 1c2:	4479      	add	r1, pc
+ 1c4:	f000 f9be 	bl	544 <text_layer_set_text>
+ 1c8:	4629      	mov	r1, r5
+ 1ca:	6820      	ldr	r0, [r4, #0]
+ 1cc:	f000 f9c0 	bl	550 <text_layer_set_text_alignment>
+ 1d0:	6820      	ldr	r0, [r4, #0]
+ 1d2:	f000 f9a5 	bl	520 <text_layer_get_layer>
+ 1d6:	4601      	mov	r1, r0
+ 1d8:	4630      	mov	r0, r6
+ 1da:	b005      	add	sp, #20
+ 1dc:	e8bd 40f0 	ldmia.w	sp!, {r4, r5, r6, r7, lr}
+ 1e0:	f000 b93e 	b.w	460 <layer_add_child>
+ 1e4:	00000434 	.word	0x00000434
+ 1e8:	000003a8 	.word	0x000003a8
+ 1ec:	000003b1 	.word	0x000003b1
+
+000001f0 <click_config_provider>:
+ 1f0:	b538      	push	{r3, r4, r5, lr}
+ 1f2:	490e      	ldr	r1, [pc, #56]	; (22c <click_config_provider+0x3c>)
+ 1f4:	4d0e      	ldr	r5, [pc, #56]	; (230 <click_config_provider+0x40>)
+ 1f6:	4c0f      	ldr	r4, [pc, #60]	; (234 <click_config_provider+0x44>)
+ 1f8:	2002      	movs	r0, #2
+ 1fa:	447d      	add	r5, pc
+ 1fc:	4479      	add	r1, pc
+ 1fe:	f000 f971 	bl	4e4 <window_single_click_subscribe>
+ 202:	447c      	add	r4, pc
+ 204:	2001      	movs	r0, #1
+ 206:	4629      	mov	r1, r5
+ 208:	f000 f96c 	bl	4e4 <window_single_click_subscribe>
+ 20c:	2003      	movs	r0, #3
+ 20e:	4621      	mov	r1, r4
+ 210:	f000 f968 	bl	4e4 <window_single_click_subscribe>
+ 214:	2001      	movs	r0, #1
+ 216:	2132      	movs	r1, #50	; 0x32
+ 218:	462a      	mov	r2, r5
+ 21a:	f000 f969 	bl	4f0 <window_single_repeating_click_subscribe>
+ 21e:	2003      	movs	r0, #3
+ 220:	2132      	movs	r1, #50	; 0x32
+ 222:	4622      	mov	r2, r4
+ 224:	e8bd 4038 	ldmia.w	sp!, {r3, r4, r5, lr}
+ 228:	f000 b962 	b.w	4f0 <window_single_repeating_click_subscribe>
+ 22c:	fffffecd 	.word	0xfffffecd
+ 230:	000000cb 	.word	0x000000cb
+ 234:	0000007f 	.word	0x0000007f
+
+00000238 <update_bpm>:
+ 238:	b538      	push	{r3, r4, r5, lr}
+ 23a:	4d0d      	ldr	r5, [pc, #52]	; (270 <update_bpm+0x38>)
+ 23c:	4c0d      	ldr	r4, [pc, #52]	; (274 <update_bpm+0x3c>)
+ 23e:	4a0e      	ldr	r2, [pc, #56]	; (278 <update_bpm+0x40>)
+ 240:	447d      	add	r5, pc
+ 242:	447c      	add	r4, pc
+ 244:	447a      	add	r2, pc
+ 246:	2104      	movs	r1, #4
+ 248:	6823      	ldr	r3, [r4, #0]
+ 24a:	4628      	mov	r0, r5
+ 24c:	f000 f91a 	bl	484 <snprintf>
+ 250:	4b0a      	ldr	r3, [pc, #40]	; (27c <update_bpm+0x44>)
+ 252:	4629      	mov	r1, r5
+ 254:	447b      	add	r3, pc
+ 256:	6818      	ldr	r0, [r3, #0]
+ 258:	f000 f974 	bl	544 <text_layer_set_text>
+ 25c:	6823      	ldr	r3, [r4, #0]
+ 25e:	f64e 2260 	movw	r2, #60000	; 0xea60
+ 262:	fb92 f2f3 	sdiv	r2, r2, r3
+ 266:	4b06      	ldr	r3, [pc, #24]	; (280 <update_bpm+0x48>)
+ 268:	447b      	add	r3, pc
+ 26a:	601a      	str	r2, [r3, #0]
+ 26c:	bd38      	pop	{r3, r4, r5, pc}
+ 26e:	bf00      	nop
+ 270:	00000398 	.word	0x00000398
+ 274:	00000386 	.word	0x00000386
+ 278:	0000033e 	.word	0x0000033e
+ 27c:	00000380 	.word	0x00000380
+ 280:	00000368 	.word	0x00000368
+
+00000284 <down_click_handler>:
+ 284:	b538      	push	{r3, r4, r5, lr}
+ 286:	4c0c      	ldr	r4, [pc, #48]	; (2b8 <down_click_handler+0x34>)
+ 288:	4d0c      	ldr	r5, [pc, #48]	; (2bc <down_click_handler+0x38>)
+ 28a:	447c      	add	r4, pc
+ 28c:	6823      	ldr	r3, [r4, #0]
+ 28e:	447d      	add	r5, pc
+ 290:	3b01      	subs	r3, #1
+ 292:	6023      	str	r3, [r4, #0]
+ 294:	f7ff ffd0 	bl	238 <update_bpm>
+ 298:	4a09      	ldr	r2, [pc, #36]	; (2c0 <down_click_handler+0x3c>)
+ 29a:	2104      	movs	r1, #4
+ 29c:	6823      	ldr	r3, [r4, #0]
+ 29e:	4628      	mov	r0, r5
+ 2a0:	447a      	add	r2, pc
+ 2a2:	f000 f8ef 	bl	484 <snprintf>
+ 2a6:	4b07      	ldr	r3, [pc, #28]	; (2c4 <down_click_handler+0x40>)
+ 2a8:	4629      	mov	r1, r5
+ 2aa:	447b      	add	r3, pc
+ 2ac:	6818      	ldr	r0, [r3, #0]
+ 2ae:	e8bd 4038 	ldmia.w	sp!, {r3, r4, r5, lr}
+ 2b2:	f000 b947 	b.w	544 <text_layer_set_text>
+ 2b6:	bf00      	nop
+ 2b8:	0000033e 	.word	0x0000033e
+ 2bc:	0000034a 	.word	0x0000034a
+ 2c0:	000002e2 	.word	0x000002e2
+ 2c4:	0000032a 	.word	0x0000032a
+
+000002c8 <up_click_handler>:
+ 2c8:	b538      	push	{r3, r4, r5, lr}
+ 2ca:	4c0c      	ldr	r4, [pc, #48]	; (2fc <up_click_handler+0x34>)
+ 2cc:	4d0c      	ldr	r5, [pc, #48]	; (300 <up_click_handler+0x38>)
+ 2ce:	447c      	add	r4, pc
+ 2d0:	6823      	ldr	r3, [r4, #0]
+ 2d2:	447d      	add	r5, pc
+ 2d4:	3301      	adds	r3, #1
+ 2d6:	6023      	str	r3, [r4, #0]
+ 2d8:	f7ff ffae 	bl	238 <update_bpm>
+ 2dc:	4a09      	ldr	r2, [pc, #36]	; (304 <up_click_handler+0x3c>)
+ 2de:	2104      	movs	r1, #4
+ 2e0:	6823      	ldr	r3, [r4, #0]
+ 2e2:	4628      	mov	r0, r5
+ 2e4:	447a      	add	r2, pc
+ 2e6:	f000 f8cd 	bl	484 <snprintf>
+ 2ea:	4b07      	ldr	r3, [pc, #28]	; (308 <up_click_handler+0x40>)
+ 2ec:	4629      	mov	r1, r5
+ 2ee:	447b      	add	r3, pc
+ 2f0:	6818      	ldr	r0, [r3, #0]
+ 2f2:	e8bd 4038 	ldmia.w	sp!, {r3, r4, r5, lr}
+ 2f6:	f000 b925 	b.w	544 <text_layer_set_text>
+ 2fa:	bf00      	nop
+ 2fc:	000002fa 	.word	0x000002fa
+ 300:	00000306 	.word	0x00000306
+ 304:	0000029e 	.word	0x0000029e
+ 308:	000002e6 	.word	0x000002e6
+
+0000030c <timer_callback>:
+ 30c:	b508      	push	{r3, lr}
+ 30e:	4b0b      	ldr	r3, [pc, #44]	; (33c <timer_callback+0x30>)
+ 310:	447b      	add	r3, pc
+ 312:	781b      	ldrb	r3, [r3, #0]
+ 314:	b12b      	cbz	r3, 322 <timer_callback+0x16>
+ 316:	4b0a      	ldr	r3, [pc, #40]	; (340 <timer_callback+0x34>)
+ 318:	447b      	add	r3, pc
+ 31a:	e893 0003 	ldmia.w	r3, {r0, r1}
+ 31e:	f000 f8b7 	bl	490 <vibes_enqueue_custom_pattern>
+ 322:	4b08      	ldr	r3, [pc, #32]	; (344 <timer_callback+0x38>)
+ 324:	4908      	ldr	r1, [pc, #32]	; (348 <timer_callback+0x3c>)
+ 326:	447b      	add	r3, pc
+ 328:	6818      	ldr	r0, [r3, #0]
+ 32a:	4479      	add	r1, pc
+ 32c:	2200      	movs	r2, #0
+ 32e:	f000 f88b 	bl	448 <app_timer_register>
+ 332:	4b06      	ldr	r3, [pc, #24]	; (34c <timer_callback+0x40>)
+ 334:	447b      	add	r3, pc
+ 336:	6018      	str	r0, [r3, #0]
+ 338:	bd08      	pop	{r3, pc}
+ 33a:	bf00      	nop
+ 33c:	000002bc 	.word	0x000002bc
+ 340:	000002a8 	.word	0x000002a8
+ 344:	000002aa 	.word	0x000002aa
+ 348:	ffffffdf 	.word	0xffffffdf
+ 34c:	000002a8 	.word	0x000002a8
+
+00000350 <main>:
+ 350:	4b2c      	ldr	r3, [pc, #176]	; (404 <main+0xb4>)
+ 352:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+ 356:	4f2c      	ldr	r7, [pc, #176]	; (408 <main+0xb8>)
+ 358:	2278      	movs	r2, #120	; 0x78
+ 35a:	447b      	add	r3, pc
+ 35c:	601a      	str	r2, [r3, #0]
+ 35e:	447f      	add	r7, pc
+ 360:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
+ 364:	603b      	str	r3, [r7, #0]
+ 366:	4b29      	ldr	r3, [pc, #164]	; (40c <main+0xbc>)
+ 368:	b086      	sub	sp, #24
+ 36a:	2500      	movs	r5, #0
+ 36c:	447b      	add	r3, pc
+ 36e:	701d      	strb	r5, [r3, #0]
+ 370:	f000 f894 	bl	49c <window_create>
+ 374:	4c26      	ldr	r4, [pc, #152]	; (410 <main+0xc0>)
+ 376:	4927      	ldr	r1, [pc, #156]	; (414 <main+0xc4>)
+ 378:	447c      	add	r4, pc
+ 37a:	ae02      	add	r6, sp, #8
+ 37c:	4479      	add	r1, pc
+ 37e:	6020      	str	r0, [r4, #0]
+ 380:	f000 f89e 	bl	4c0 <window_set_click_config_provider>
+ 384:	4629      	mov	r1, r5
+ 386:	2210      	movs	r2, #16
+ 388:	4630      	mov	r0, r6
+ 38a:	f8d4 8000 	ldr.w	r8, [r4]
+ 38e:	f000 f873 	bl	478 <memset>
+ 392:	4b21      	ldr	r3, [pc, #132]	; (418 <main+0xc8>)
+ 394:	4640      	mov	r0, r8
+ 396:	447b      	add	r3, pc
+ 398:	9302      	str	r3, [sp, #8]
+ 39a:	4b20      	ldr	r3, [pc, #128]	; (41c <main+0xcc>)
+ 39c:	447b      	add	r3, pc
+ 39e:	9300      	str	r3, [sp, #0]
+ 3a0:	9305      	str	r3, [sp, #20]
+ 3a2:	e896 000e 	ldmia.w	r6, {r1, r2, r3}
+ 3a6:	f000 f891 	bl	4cc <window_set_window_handlers>
+ 3aa:	2601      	movs	r6, #1
+ 3ac:	2100      	movs	r1, #0
+ 3ae:	f366 0101 	bfi	r1, r6, #0, #2
+ 3b2:	f366 0183 	bfi	r1, r6, #2, #2
+ 3b6:	6820      	ldr	r0, [r4, #0]
+ 3b8:	f061 010f 	orn	r1, r1, #15
+ 3bc:	f000 f89e 	bl	4fc <window_set_background_color>
+ 3c0:	6820      	ldr	r0, [r4, #0]
+ 3c2:	4631      	mov	r1, r6
+ 3c4:	f000 f888 	bl	4d8 <window_stack_push>
+ 3c8:	f7ff ff36 	bl	238 <update_bpm>
+ 3cc:	4914      	ldr	r1, [pc, #80]	; (420 <main+0xd0>)
+ 3ce:	462a      	mov	r2, r5
+ 3d0:	6838      	ldr	r0, [r7, #0]
+ 3d2:	4479      	add	r1, pc
+ 3d4:	f000 f838 	bl	448 <app_timer_register>
+ 3d8:	4b12      	ldr	r3, [pc, #72]	; (424 <main+0xd4>)
+ 3da:	4913      	ldr	r1, [pc, #76]	; (428 <main+0xd8>)
+ 3dc:	447b      	add	r3, pc
+ 3de:	6018      	str	r0, [r3, #0]
+ 3e0:	6823      	ldr	r3, [r4, #0]
+ 3e2:	20c8      	movs	r0, #200	; 0xc8
+ 3e4:	9300      	str	r3, [sp, #0]
+ 3e6:	4b11      	ldr	r3, [pc, #68]	; (42c <main+0xdc>)
+ 3e8:	4479      	add	r1, pc
+ 3ea:	2266      	movs	r2, #102	; 0x66
+ 3ec:	447b      	add	r3, pc
+ 3ee:	f000 f825 	bl	43c <app_log>
+ 3f2:	f000 f81d 	bl	430 <app_event_loop>
+ 3f6:	6820      	ldr	r0, [r4, #0]
+ 3f8:	f000 f856 	bl	4a8 <window_destroy>
+ 3fc:	4628      	mov	r0, r5
+ 3fe:	b006      	add	sp, #24
+ 400:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+ 404:	0000026e 	.word	0x0000026e
+ 408:	00000272 	.word	0x00000272
+ 40c:	00000260 	.word	0x00000260
+ 410:	00000268 	.word	0x00000268
+ 414:	fffffe71 	.word	0xfffffe71
+ 418:	fffffdc3 	.word	0xfffffdc3
+ 41c:	fffffd1d 	.word	0xfffffd1d
+ 420:	ffffff37 	.word	0xffffff37
+ 424:	00000200 	.word	0x00000200
+ 428:	0000019d 	.word	0x0000019d
+ 42c:	000001a6 	.word	0x000001a6
+
+00000430 <app_event_loop>:
+ 430:	b40f      	push	{r0, r1, r2, r3}
+ 432:	4901      	ldr	r1, [pc, #4]	; (438 <app_event_loop+0x8>)
+ 434:	f7ff be38 	b.w	a8 <jump_to_pbl_function>
+ 438:	0000007c 	.word	0x0000007c
+
+0000043c <app_log>:
+ 43c:	b40f      	push	{r0, r1, r2, r3}
+ 43e:	4901      	ldr	r1, [pc, #4]	; (444 <app_log+0x8>)
+ 440:	f7ff be32 	b.w	a8 <jump_to_pbl_function>
+ 444:	00000088 	.word	0x00000088
+
+00000448 <app_timer_register>:
+ 448:	b40f      	push	{r0, r1, r2, r3}
+ 44a:	4901      	ldr	r1, [pc, #4]	; (450 <app_timer_register+0x8>)
+ 44c:	f7ff be2c 	b.w	a8 <jump_to_pbl_function>
+ 450:	000000c0 	.word	0x000000c0
+
+00000454 <fonts_get_system_font>:
+ 454:	b40f      	push	{r0, r1, r2, r3}
+ 456:	4901      	ldr	r1, [pc, #4]	; (45c <fonts_get_system_font+0x8>)
+ 458:	f7ff be26 	b.w	a8 <jump_to_pbl_function>
+ 45c:	00000180 	.word	0x00000180
+
+00000460 <layer_add_child>:
+ 460:	b40f      	push	{r0, r1, r2, r3}
+ 462:	4901      	ldr	r1, [pc, #4]	; (468 <layer_add_child+0x8>)
+ 464:	f7ff be20 	b.w	a8 <jump_to_pbl_function>
+ 468:	00000228 	.word	0x00000228
+
+0000046c <layer_get_bounds>:
+ 46c:	b40f      	push	{r0, r1, r2, r3}
+ 46e:	4901      	ldr	r1, [pc, #4]	; (474 <layer_get_bounds+0x8>)
+ 470:	f7ff be1a 	b.w	a8 <jump_to_pbl_function>
+ 474:	00000238 	.word	0x00000238
+
+00000478 <memset>:
+ 478:	b40f      	push	{r0, r1, r2, r3}
+ 47a:	4901      	ldr	r1, [pc, #4]	; (480 <memset+0x8>)
+ 47c:	f7ff be14 	b.w	a8 <jump_to_pbl_function>
+ 480:	00000290 	.word	0x00000290
+
+00000484 <snprintf>:
+ 484:	b40f      	push	{r0, r1, r2, r3}
+ 486:	4901      	ldr	r1, [pc, #4]	; (48c <snprintf+0x8>)
+ 488:	f7ff be0e 	b.w	a8 <jump_to_pbl_function>
+ 48c:	000003bc 	.word	0x000003bc
+
+00000490 <vibes_enqueue_custom_pattern>:
+ 490:	b40f      	push	{r0, r1, r2, r3}
+ 492:	4901      	ldr	r1, [pc, #4]	; (498 <vibes_enqueue_custom_pattern+0x8>)
+ 494:	f7ff be08 	b.w	a8 <jump_to_pbl_function>
+ 498:	00000430 	.word	0x00000430
+
+0000049c <window_create>:
+ 49c:	b40f      	push	{r0, r1, r2, r3}
+ 49e:	4901      	ldr	r1, [pc, #4]	; (4a4 <window_create+0x8>)
+ 4a0:	f7ff be02 	b.w	a8 <jump_to_pbl_function>
+ 4a4:	0000043c 	.word	0x0000043c
+
+000004a8 <window_destroy>:
+ 4a8:	b40f      	push	{r0, r1, r2, r3}
+ 4aa:	4901      	ldr	r1, [pc, #4]	; (4b0 <window_destroy+0x8>)
+ 4ac:	f7ff bdfc 	b.w	a8 <jump_to_pbl_function>
+ 4b0:	00000440 	.word	0x00000440
+
+000004b4 <window_get_root_layer>:
+ 4b4:	b40f      	push	{r0, r1, r2, r3}
+ 4b6:	4901      	ldr	r1, [pc, #4]	; (4bc <window_get_root_layer+0x8>)
+ 4b8:	f7ff bdf6 	b.w	a8 <jump_to_pbl_function>
+ 4bc:	0000044c 	.word	0x0000044c
+
+000004c0 <window_set_click_config_provider>:
+ 4c0:	b40f      	push	{r0, r1, r2, r3}
+ 4c2:	4901      	ldr	r1, [pc, #4]	; (4c8 <window_set_click_config_provider+0x8>)
+ 4c4:	f7ff bdf0 	b.w	a8 <jump_to_pbl_function>
+ 4c8:	00000458 	.word	0x00000458
+
+000004cc <window_set_window_handlers>:
+ 4cc:	b40f      	push	{r0, r1, r2, r3}
+ 4ce:	4901      	ldr	r1, [pc, #4]	; (4d4 <window_set_window_handlers+0x8>)
+ 4d0:	f7ff bdea 	b.w	a8 <jump_to_pbl_function>
+ 4d4:	00000468 	.word	0x00000468
+
+000004d8 <window_stack_push>:
+ 4d8:	b40f      	push	{r0, r1, r2, r3}
+ 4da:	4901      	ldr	r1, [pc, #4]	; (4e0 <window_stack_push+0x8>)
+ 4dc:	f7ff bde4 	b.w	a8 <jump_to_pbl_function>
+ 4e0:	0000047c 	.word	0x0000047c
+
+000004e4 <window_single_click_subscribe>:
+ 4e4:	b40f      	push	{r0, r1, r2, r3}
+ 4e6:	4901      	ldr	r1, [pc, #4]	; (4ec <window_single_click_subscribe+0x8>)
+ 4e8:	f7ff bdde 	b.w	a8 <jump_to_pbl_function>
+ 4ec:	000004cc 	.word	0x000004cc
+
+000004f0 <window_single_repeating_click_subscribe>:
+ 4f0:	b40f      	push	{r0, r1, r2, r3}
+ 4f2:	4901      	ldr	r1, [pc, #4]	; (4f8 <window_single_repeating_click_subscribe+0x8>)
+ 4f4:	f7ff bdd8 	b.w	a8 <jump_to_pbl_function>
+ 4f8:	000004d0 	.word	0x000004d0
+
+000004fc <window_set_background_color>:
+ 4fc:	b40f      	push	{r0, r1, r2, r3}
+ 4fe:	4901      	ldr	r1, [pc, #4]	; (504 <window_set_background_color+0x8>)
+ 500:	f7ff bdd2 	b.w	a8 <jump_to_pbl_function>
+ 504:	000005e4 	.word	0x000005e4
+
+00000508 <text_layer_create>:
+ 508:	b40f      	push	{r0, r1, r2, r3}
+ 50a:	4901      	ldr	r1, [pc, #4]	; (510 <text_layer_create+0x8>)
+ 50c:	f7ff bdcc 	b.w	a8 <jump_to_pbl_function>
+ 510:	00000738 	.word	0x00000738
+
+00000514 <text_layer_destroy>:
+ 514:	b40f      	push	{r0, r1, r2, r3}
+ 516:	4901      	ldr	r1, [pc, #4]	; (51c <text_layer_destroy+0x8>)
+ 518:	f7ff bdc6 	b.w	a8 <jump_to_pbl_function>
+ 51c:	0000073c 	.word	0x0000073c
+
+00000520 <text_layer_get_layer>:
+ 520:	b40f      	push	{r0, r1, r2, r3}
+ 522:	4901      	ldr	r1, [pc, #4]	; (528 <text_layer_get_layer+0x8>)
+ 524:	f7ff bdc0 	b.w	a8 <jump_to_pbl_function>
+ 528:	00000744 	.word	0x00000744
+
+0000052c <text_layer_set_background_color>:
+ 52c:	b40f      	push	{r0, r1, r2, r3}
+ 52e:	4901      	ldr	r1, [pc, #4]	; (534 <text_layer_set_background_color+0x8>)
+ 530:	f7ff bdba 	b.w	a8 <jump_to_pbl_function>
+ 534:	0000074c 	.word	0x0000074c
+
+00000538 <text_layer_set_font>:
+ 538:	b40f      	push	{r0, r1, r2, r3}
+ 53a:	4901      	ldr	r1, [pc, #4]	; (540 <text_layer_set_font+0x8>)
+ 53c:	f7ff bdb4 	b.w	a8 <jump_to_pbl_function>
+ 540:	00000750 	.word	0x00000750
+
+00000544 <text_layer_set_text>:
+ 544:	b40f      	push	{r0, r1, r2, r3}
+ 546:	4901      	ldr	r1, [pc, #4]	; (54c <text_layer_set_text+0x8>)
+ 548:	f7ff bdae 	b.w	a8 <jump_to_pbl_function>
+ 54c:	0000075c 	.word	0x0000075c
+
+00000550 <text_layer_set_text_alignment>:
+ 550:	b40f      	push	{r0, r1, r2, r3}
+ 552:	4901      	ldr	r1, [pc, #4]	; (558 <text_layer_set_text_alignment+0x8>)
+ 554:	f7ff bda8 	b.w	a8 <jump_to_pbl_function>
+ 558:	00000760 	.word	0x00000760
+
+0000055c <.LC0>:
+ 55c:	4f534552 	.word	0x4f534552
+ 560:	45435255 	.word	0x45435255
+ 564:	5f44495f 	.word	0x5f44495f
+ 568:	48544f47 	.word	0x48544f47
+ 56c:	325f4349 	.word	0x325f4349
+ 570:	4f425f38 	.word	0x4f425f38
+ 574:	444c      	.short	0x444c
+	...
+
+00000577 <.LC1>:
+ 577:	50          	.byte	0x50
+ 578:	73736572 	.word	0x73736572
+ 57c:	62206120 	.word	0x62206120
+ 580:	6f747475 	.word	0x6f747475
+ 584:	006e      	.short	0x006e
+
+00000586 <.LC2>:
+ 586:	6425      	.short	0x6425
+	...
+
+00000589 <.LC3>:
+ 589:	53          	.byte	0x53
+ 58a:	6d69      	.short	0x6d69
+ 58c:	20656c70 	.word	0x20656c70
+ 590:	2e74654d 	.word	0x2e74654d
+ 594:	0063      	.short	0x0063
+
+00000596 <.LC4>:
+ 596:	6f44      	.short	0x6f44
+ 598:	6920656e 	.word	0x6920656e
+ 59c:	6974696e 	.word	0x6974696e
+ 5a0:	7a696c61 	.word	0x7a696c61
+ 5a4:	2c676e69 	.word	0x2c676e69
+ 5a8:	73757020 	.word	0x73757020
+ 5ac:	20646568 	.word	0x20646568
+ 5b0:	646e6977 	.word	0x646e6977
+ 5b4:	203a776f 	.word	0x203a776f
+ 5b8:	00007025 	.word	0x00007025
+
+000005bc <segments>:
+ 5bc:	0000001e                                ....

@@ -1,0 +1,18 @@
+{
+  "uuid": "1e4d20e1-a8b6-47b6-96e3-a5f1828be550",
+  "shortName": "Met",
+  "longName": "Simple Metronome",
+  "companyName": "C_Elegans",
+  "versionLabel": "0.1",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt", "chalk"],
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}

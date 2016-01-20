@@ -1,0 +1,9 @@
+#import <stdio.h>
+int main(void){
+	int i;
+	for(i=0;i<5;i++){
+		printf("In for: %d\n",i);
+	}
+	printf("End: %d\n",i);
+
+}
